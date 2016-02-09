@@ -34,6 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem 'haml-rails', '~> 0.9.0'
+gem "figaro"
 
 gem 'devise', '~> 3.5', '>= 3.5.5'
 group :development, :test do
@@ -53,4 +54,8 @@ group :test do
 	gem 'rspec-rails', '~> 3.4', '>= 3.4.1'
 	gem 'rspec-html-matchers'
 	gem 'factory_girl_rails', '~> 4.5'
+end
+
+group :production do
+	gem 'rails_12factor'
 end
