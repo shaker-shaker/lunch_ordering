@@ -1,0 +1,26 @@
+- provide(:title, 'Log in')
+
+= form_for(resource, as: resource_name, url: session_path(resource_name),
+        :html => {:class => 'signin-form form-horizontal'}) do |f|
+  %h2.col-sm-offset-2.col-sm-10 Please sign in
+  .form-group
+    = f.label :email, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.email_field :email, autofocus: true, class: "form-control"
+  .form-group
+    = f.label :password, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.password_field :password, autocomplete: "off", class: "form-control"
+  - if devise_mapping.rememberable?
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        .checkbox
+          %label
+            = f.check_box :remember_me
+            Remember me
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit "Log in", class: "btn btn-default"
+    
+  /.col-sm-offset-2.col-sm-10.reset-padding
+  /  = render "devise/shared/links"
