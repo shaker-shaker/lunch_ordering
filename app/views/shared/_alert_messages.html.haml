@@ -1,0 +1,7 @@
+- devise_error_messages!
+- flash.each do |key, value|
+  .alert{ :class => "alert-#{bootstrap_class_for key}" }
+    %button.close{ type: "button", "data-dismiss": "alert" }
+      %span
+        &times;
+    = value.html_safe

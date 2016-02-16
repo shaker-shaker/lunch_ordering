@@ -1,0 +1,23 @@
+.page-header
+  %h2
+    Update today's menu
+.row
+  #today-menu.col-md-12
+  .col-md-8
+    = form_tag dishes_path, method: :post, remote: true, id: "today-menu-form", class: "form-horizontal" do
+      .form-group
+        = label_tag :dish_category, "Category", class: "col-sm-4 control-label"
+        .col-sm-8
+          = collection_select :dish_category, :id, DishCategory.all, :id, :name, 
+            {:prompt=>true}, {:class=>'form-control'}
+      .form-group
+        = label_tag :name, "Name", class: "col-sm-4 control-label"
+        .col-sm-8
+          = text_field_tag :name, '', class: "form-control"
+      .form-group
+        = label_tag :price, "Price", class: "col-sm-4 control-label"
+        .col-sm-8
+          = text_field_tag :price, '', class: "form-control"
+      .form-group
+        .col-sm-offset-4.col-sm-8
+          = submit_tag "Submit", class: "btn btn-default" 

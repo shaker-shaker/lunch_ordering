@@ -4,39 +4,20 @@
 		%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
 		%title 
 			= full_title(yield(:title))
-		= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-		= javascript_include_tag 'application', 'data-turbolinks-track' => true
+		- if params[:controller] == "dashboard"
+			= stylesheet_link_tag 'application', params[:controller], :media => 'all', 'data-turbolinks-track' => true
+			= javascript_include_tag 'application', params[:controller], 'data-turbolinks-track' => true
+		-else
+			= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+			= javascript_include_tag 'application', 'data-turbolinks-track' => true
 		= csrf_meta_tags
 	%body
 		.wrapper
-			%nav.navbar.navbar-inverse
-				.container
-					.navbar-header
-						%a.navbar-brand{ href: root_path } Lunch ordering
-					.navbar-right
-						-if user_signed_in?
-							%ul.nav.navbar-nav
-								%li.dropdown
-									%a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"} 
-										You signed in as 
-										= current_user.name
-										%span.caret
-									%ul.dropdown-menu
-										%li
-											= link_to "Edit profile", edit_user_path(current_user.id)
-										%li.divider{:role => "separator"}
-										%li
-											= link_to "Sign out", destroy_user_session_path, :method => :delete
-							%p.navbar-text 
-						-else
-							.header-actions
-								= link_to "Sign up", new_user_registration_path, class: "btn btn-primary"
-								= link_to "Sign in", new_user_session_path, class: "btn btn-default" 
+			= render "layouts/header"
 			#main-container.container
-				- devise_error_messages!
-				- flash.each do |key, value|
-					.alert{ :class => "alert-#{bootstrap_class_for key}" }
-						= value.html_safe
+				.error-explaination
+					= render "shared/alert_messages"
 				= yield
 			%footer.footer
 				.container  ...
+			= debug(params) if Rails.env.development?

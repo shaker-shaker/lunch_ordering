@@ -1,0 +1,36 @@
+= include_gon
+.page-header
+  %h1
+    Dashboard
+
+.row.show-grid
+  .col-md-5
+    .input-group
+      = text_field_tag "day-selector", nil, class: "form-control"
+      %span.input-group-addon
+        %span.glyphicon.glyphicon-calendar
+
+.row.show-grid
+  .col-md-12
+    -if current_user.admin?
+      %ul#tab-list.nav.nav-tabs{:role => "tablist"}
+        %li.tab-bar.active{:role => "presentation", "data-tab": "menu"}
+          %a{"data-toggle" => "tab", :href => "#menu", :role => "tab"} Menu
+        %li.tab-bar{:role => "presentation", "data-tab": "order-history"}
+          %a{"data-toggle" => "tab", :href => "#order-history", :role => "tab"} Order history
+        %li.tab-bar{:role => "presentation", "data-tab": "edit-menu"}
+          %a{"data-toggle" => "tab", :href => "#edit-menu", :role => "tab"} Edit today's menu
+        %li.tab-bar{:role => "presentation", "data-tab": "user-list"}
+          %a{"data-toggle" => "tab", :href => "#user-list-tab", :role => "tab"} Registered users
+    
+      .tab-content
+        #menu.tab-pane.active{:role => "tabpanel"}
+          = render "shared/placing_order"
+        #order-history.tab-pane{:role => "tabpanel"}
+          = render "shared/order_history"
+        #edit-menu.tab-pane{:role => "tabpanel"}
+          = render "dishes/edit_menu"
+        #user-list-tab.tab-pane{:role => "tabpanel"}
+          = user_list
+    -else
+      = render "shared/placing_order"

@@ -1,0 +1,19 @@
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title 
+      = dish_category.slice(0,1).capitalize + dish_category.slice(1..-1)
+  .panel-body
+    - if @menu[:menu].any? {|d| d.category.name == dish_category}
+      %ul.list-group
+        - @menu[:menu].where(category: DishCategory.find_by(name: dish_category)).each do |dish|
+          %li.list-group-item.menu-dish-item{"data-price": dish.price}
+            %span.badge
+              = number_to_currency dish.price
+            %label.reset-margin.reset-padding
+              - if selectable == "true"
+                = radio_button_tag "order[ordered][#{dish_category.sub ' ', '_'}]", dish.id
+              %span.dish-name
+                = dish.name
+    -else
+      %strong
+        There is nothing that you could order

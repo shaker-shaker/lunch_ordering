@@ -5,7 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
-
+gem 'sprockets', '~> 3.5', '>= 3.5.2'
+gem 'sprockets_better_errors'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -35,8 +36,18 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'haml-rails', '~> 0.9.0'
 gem "figaro"
-
+gem 'bootstrap-datepicker-rails'
 gem 'devise', '~> 3.5', '>= 3.5.5'
+gem 'responders', '~> 2.1', '>= 2.1.1'
+gem 'faker', '~> 1.6', '>= 1.6.1'
+gem "js-routes"
+gem 'gon'
+
+gem 'rabl'
+gem 'oj'
+
+gem 'connection_pool', '~> 2.2'
+
 group :development, :test do
   gem 'byebug'
 end
@@ -47,13 +58,23 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'spork', github: 'sporkrb/spork'
+  gem 'spork-rails', '~> 4.0'
+  gem 'guard', '~> 2.13'
+  gem 'guard-rspec', github: 'guard/guard-rspec'
+  gem 'guard-spork', '~> 2.1'
+
 end
 
 group :test do
+  gem 'selenium-webdriver'
 	gem 'capybara', '~> 2.6', '>= 2.6.2'
 	gem 'rspec-rails', '~> 3.4', '>= 3.4.1'
 	gem 'rspec-html-matchers'
 	gem 'factory_girl_rails', '~> 4.5'
+  gem 'capybara-webkit'
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
+  gem 'delorean'
 end
 
 group :production do

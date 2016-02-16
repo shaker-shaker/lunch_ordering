@@ -1,0 +1,7 @@
+.row.show-grid
+  .col-md-4
+    = render partial: "dishes/menu_item", locals: { dish_category: "first course", selectable: selectable }
+  .col-md-4
+    = render partial: "dishes/menu_item", locals: { dish_category: "main course", selectable: selectable }
+  .col-md-4
+    = render partial: "dishes/menu_item", locals: { dish_category: "drink", selectable: selectable }

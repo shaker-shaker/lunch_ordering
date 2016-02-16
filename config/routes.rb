@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations" }
-  resources :users
+  resources :users, only: [:edit, :update]
+  resources :orders, only: [:create] 
+  resources :dishes, only: [:create]
+
   #get 'home/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -8,6 +11,15 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'static_pages#index'
+  get 'dishes/menu/:date' => 'dishes#menu', as: :menu
+  get 'dashboard/' => 'dashboard#index', as: :dashboard
+  get 'orders/history/:date' => 'orders#history', as: :orders_history
+  
+  namespace :api do
+    namespace :v1 do
+      get 'today_orders/' => 'api#today_orders', as: :today_orders
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

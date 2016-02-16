@@ -1,0 +1,6 @@
+:plain
+  $('#today-menu').html("#{j render partial: 'dishes/menu', locals: {selectable: 'false' }}");
+  $('.error-explaination').html("#{j render partial: 'shared/alert_messages'}");
+  $("html, body").animate({ scrollTop: 0 }, "slow");
+  $("#today-menu-form").find("input[type=text]").val("");
+  $('#today-menu-form select').val($("#today-menu-form select option:first").val());

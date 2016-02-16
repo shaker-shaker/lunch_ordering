@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 	before_action :authenticate_user!
+	before_action :check_for_admin, only: [:list]
 
 	def edit
 	end

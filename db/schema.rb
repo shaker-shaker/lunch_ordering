@@ -11,10 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204104017) do
+ActiveRecord::Schema.define(version: 20160213160010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dish_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dishes", force: :cascade do |t|
+    t.datetime "date"
+    t.decimal  "price"
+    t.string   "name"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "dishes", ["category_id"], name: "index_dishes_on_category_id", using: :btree
+
+  create_table "dishes_orders", id: false, force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "dish_id"
+  end
+
+  add_index "dishes_orders", ["dish_id"], name: "index_dishes_orders_on_dish_id", using: :btree
+  add_index "dishes_orders", ["order_id"], name: "index_dishes_orders_on_order_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -37,6 +70,7 @@ ActiveRecord::Schema.define(version: 20160204104017) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "role_id"
+    t.string   "api_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

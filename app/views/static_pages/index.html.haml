@@ -1,2 +1,11 @@
-%h1 Home#index
-%p Find me in app/views/home/index.html.haml
+%h1 Welcome!
+-if user_signed_in?
+  %p 
+    Please,
+    = link_to "Place your order", dashboard_path, class: "btn btn-link"
+    when you ready
+-else
+  %p 
+    Please,
+    = link_to "Sign in", new_user_session_path, class: "btn btn-link"
+    sign in to make your order

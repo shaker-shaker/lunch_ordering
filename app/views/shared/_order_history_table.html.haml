@@ -1,0 +1,35 @@
+- if orders.count > 0
+  %table.table.table-bordered.table-condensed.table-striped
+    %thead
+      %th
+        Date
+      %th
+        User
+      %th
+        Order
+      %th
+        Order total
+    %tbody
+      - orders.each do |order|
+        %tr
+          %td
+            = order.created_at.strftime("%d/%m/%Y at %I:%M%p") 
+          %td
+            = order.user.name
+          %td
+            - if order.dishes.present?
+              %ul.list-inline
+                - order.dishes.each do |dish|
+                  %li
+                    = dish.name
+          %td
+            = number_to_currency order.total
+    %tfoot
+      %tr
+        %td{colspan: 3}
+          %strong
+            Total
+        %td
+          = number_to_currency orders.inject(0){|sum,x| sum + x.total }
+- else
+  There are no orders for this period
