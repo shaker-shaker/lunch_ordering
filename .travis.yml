@@ -2,6 +2,14 @@ language: ruby
 before_install:
   - gem install bundler
   - rvm install 2.2.3
+before_script:
+  - psql -c "CREATE USER pguser WITH PASSWORD '123123';" -U postgres
+  - psql -c 'create database lunch_ordering_test;' -U pguser
+  - cp config/database.yml.travis config/database.yml
 rvm:
   - 2.2.3
   - 1.9.3
+services:
+  - postgresql
+addons:
+  postgresql: "9.3"
