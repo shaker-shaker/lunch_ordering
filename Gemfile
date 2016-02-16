@@ -49,7 +49,7 @@ gem 'oj'
 gem 'connection_pool', '~> 2.2'
 
 group :development, :test do
-  gem 'byebug'
+  gem 'byebug', '~> 8.2', '>= 8.2.2'
 end
 
 group :development do

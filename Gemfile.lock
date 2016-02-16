@@ -315,7 +315,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3, >= 3.3.6)
-  byebug
+  byebug (~> 8.2, >= 8.2.2)
   capybara (~> 2.6, >= 2.6.2)
   capybara-webkit
   coffee-rails (~> 4.1.0)
