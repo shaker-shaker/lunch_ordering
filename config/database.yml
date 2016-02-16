@@ -2,12 +2,10 @@ development:
   adapter: postgresql
   encoding: unicode
   database: lunch_ordering_dev
-  username: pguser
-  password: "123123"
+  username: postgres
 
 test:
   adapter: postgresql
   encoding: unicode
   database: lunch_ordering_test
-  username: pguser
-  password: "123123"
+  username: postgres
