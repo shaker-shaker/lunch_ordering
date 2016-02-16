@@ -2,13 +2,15 @@ language: ruby
 before_install:
   - gem install bundler
   - rvm install 2.2.3
+  - sudo apt-get install xvfb 
+
 before_script:
   - psql -c 'create database lunch_ordering_test;' -U postgres
 
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
-  - bundle exec rake
+  - xvfb-run rspec
 rvm:
   - 2.2.3
   - 1.9.3
