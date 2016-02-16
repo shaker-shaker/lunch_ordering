@@ -75,6 +75,7 @@ group :test do
   gem 'capybara-webkit'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
   gem 'delorean'
+  gem 'rake'
 end
 
 group :production do

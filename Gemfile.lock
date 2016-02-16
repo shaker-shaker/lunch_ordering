@@ -340,6 +340,7 @@ DEPENDENCIES
   rabl
   rails (= 4.2.5.1)
   rails_12factor
+  rake
   responders (~> 2.1, >= 2.1.1)
   rspec-html-matchers
   rspec-rails (~> 3.4, >= 3.4.1)
