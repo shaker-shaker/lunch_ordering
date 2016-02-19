@@ -13,9 +13,7 @@ FactoryGirl.define do
     after(:build) do |obj|
       unless obj.date.present?
         weekday = Date.new(Date.today.year, Date.today.month, 1)
-        while weekday.wday == 0 || weekday.wday == 6 do 
-          weekday += 1 
-        end
+        weekday += 1 while weekday.wday == 0 || weekday.wday == 6
         obj.date = weekday
       end
     end

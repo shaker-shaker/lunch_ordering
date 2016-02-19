@@ -1,9 +1,7 @@
 module Utilities
   def first_day_in_month(day_of_week)
     weekday = Date.new(Date.today.year, Date.today.month, 1)
-    while weekday.wday != day_of_week do 
-      weekday += 1 
-    end
+    weekday += 1 while weekday.wday != day_of_week
     return weekday
   end
 
@@ -30,17 +28,18 @@ module Utilities
   end
 
   def sign_in(user)
-    post_via_redirect user_session_path, 'user[email]' => user.email, 'user[password]' => user.password
+    post_via_redirect user_session_path, 'user[email]' => user.email,
+                                         'user[password]' => user.password
   end
 
   def select_date(date)
     page.find('#day-selector').click 
     within('.datepicker .datepicker-days') do
-      all(:xpath,
-        "//table//tr//td[text()='#{date.day}' and contains(@class, 'day') and not(contains(@class, 'disabled'))]")
+      all(:xpath, "//table//tr//td[text()='#{date.day}' \
+                  and contains(@class, 'day') \
+                  and not(contains(@class, 'disabled'))]")
       .last.click
       wait_for_ajax
     end
   end
-
 end

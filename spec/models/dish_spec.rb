@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Dish, type: :model do
-  before(:each) { 
+  before(:each) do 
     date = Date.new(Date.today.year, Date.today.month, 1)
-    while date.wday == 0 || date.wday == 6 do date += 1 end
-    @dish = Dish.new(name: "dishname", price: "11.11",
-   date: date, 
-   category: DishCategory.first) }
+    date += 1 while date.wday == 0 || date.wday == 6 
+    @dish = Dish.new(name: "dishname", price: "11.11", date: date,
+                     category: DishCategory.first)
+  end
   subject { @dish }
 
   context "with correct data" do

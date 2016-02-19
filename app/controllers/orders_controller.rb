@@ -12,31 +12,29 @@ class OrdersController < ApplicationController
     if order.save
       flash.now[:success] = "Order placed"
     else
-      flash.now[:danger] = "Error while placing order, please, contact to administrator"
+      flash.now[:danger] = "Error while placing order,"\
+                           "please, contact to administrator"
     end
   end
 
   def history
     date = Date.strptime(params[:date], "%d/%m/%Y")
-    @orders_history = 
-    { 
-      orders: Order.where("created_at::date = :date ", {date: date}),
+    @orders_history = { 
+      orders: Order.where("created_at::date = :date ", { date: date }),
       date: date
     }
     respond_with @orders_history
   end
 
   private
-
   def correct_dishes
-    unless params[:order][:ordered].present?
-      flash.now[:danger] = "Please, choose at least one product"
-      respond_to do |format|
-        format.js
-      end
+    if params[:order][:ordered].present?
+      @dishes = params[:order][:ordered].values.collect do |v| 
+        Dish.find_by(id: v) 
+      end.uniq { |e| e[:category_id] }
     else   
-      @dishes = params[:order][:ordered].values.collect { |v|  Dish.find_by(id: v) }
-      .uniq {|e| e[:category_id]}
+      flash.now[:danger] = "Please, choose at least one product"
+      respond_to { |format| format.js }
     end
   end
 end

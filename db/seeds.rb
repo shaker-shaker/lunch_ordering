@@ -6,10 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-['lunch admin', 'customer'].each do |role|
-	Role.find_or_create_by({name: role})
+%w(lunch\ admin customer).each do |role|
+	Role.find_or_create_by({ name: role })
 end
 
-['first course', 'main course', 'drink'].each do |type|
-	DishCategory.find_or_create_by({name: type})
+%w(first\ course main\ course drink).each do |type|
+	DishCategory.find_or_create_by({ name: type })
 end

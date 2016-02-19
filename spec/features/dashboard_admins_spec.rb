@@ -38,10 +38,10 @@ RSpec.feature "Dashboard", type: :feature do
       describe "while posting new dish" do
         context "with icnorrect data" do
           it "should not create dish" do
-            expect { 
+            expect do 
               page.find("input[type=submit][value='Submit']").click
               wait_for_ajax
-               }.to_not change{ Dish.count }
+            end.to_not change { Dish.count }
             is_expected.to have_css ".alert.alert-danger" 
           end
         end
@@ -54,10 +54,10 @@ RSpec.feature "Dashboard", type: :feature do
           end
 
           specify "new dish should be created" do 
-            expect { 
+            expect do
               page.find("input[type=submit][value='Submit']").click
               wait_for_ajax
-               }.to change{ Dish.count }.by(1)
+            end.to change { Dish.count }.by(1)
             is_expected.to have_css ".alert.alert-success" 
             is_expected.to have_css ".dish-name", text: "test dish"
           end
@@ -71,9 +71,7 @@ RSpec.feature "Dashboard", type: :feature do
         click_link "Registered users"
       end
 
-      it {is_expected.to have_css ".tab-pane.active td", text: user.name}
-      
+      it { is_expected.to have_css ".tab-pane.active td", text: user.name }
     end
-
   end
 end

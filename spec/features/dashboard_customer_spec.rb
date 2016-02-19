@@ -35,23 +35,26 @@ RSpec.feature "Dashboard page", type: :feature do
 				end
 
 				it "weekends should be disabled" do
-					is_expected.to have_css ".datepicker .datepicker-days table tr td.disabled", text: sunday.day.to_s
+					is_expected.to have_css ".datepicker .datepicker-days \
+                                  table tr td.disabled", text: sunday.day.to_s
 				end
 
 				it "future days should be disabled" do
-					is_expected.to have_css ".datepicker .datepicker-days table tr td.disabled", text: (Date.today.day + 1).to_s
+					is_expected.to have_css ".datepicker .datepicker-days \
+                                  table tr td.disabled",
+                                  text: (Date.today.day + 1).to_s
 				end
 			end
 
 			describe "customer" do
-				let!(:dish1) {FactoryGirl.create(:dish, date: monday)}
-				let!(:dish2) {FactoryGirl.create(:dish, date: monday)}
+				let!(:dish1) { FactoryGirl.create(:dish, date: monday) }
+				let!(:dish2) { FactoryGirl.create(:dish, date: monday) }
 
 				before do 
 					within('.datepicker .datepicker-days') do
-						first(:xpath,
-							"//table//tr//td[text()='#{monday.day}' and contains(@class, 'day') and not(contains(@class, 'disabled'))]")
-						.click
+						first(:xpath, "//table//tr//td[text()='#{monday.day}' \
+                          and contains(@class, 'day') \
+                          and not(contains(@class, 'disabled'))]").click
 					end
 				end
 
@@ -61,7 +64,9 @@ RSpec.feature "Dashboard page", type: :feature do
         end
 
         it "should see an error when he did't select any product" do
-          expect { page.find("input[type=submit][value='Submit']").click }.to_not change{ Order.count }
+          expect do 
+            page.find("input[type=submit][value='Submit']").click 
+          end.to_not change { Order.count }
           is_expected.to have_css ".alert.alert-danger"   
         end
 
@@ -72,13 +77,15 @@ RSpec.feature "Dashboard page", type: :feature do
           end
 
           it "should see order total" do
-            is_expected.to have_css(".order-total", text: dish1.price.round(2))
+            is_expected.to have_css(".order-total",
+                                    text: dish1.price.round(2))
           end
 
           it "should be able to submit order" do
-            expect {               
+            expect do              
               page.find("input[type=submit][value='Submit']").click
-              wait_for_ajax }.to change{ Order.count }.by(1)
+              wait_for_ajax
+            end.to change { Order.count }.by(1)
             is_expected.to have_css ".alert.alert-success"
             expect(Order.first.dishes).to include dish1
           end

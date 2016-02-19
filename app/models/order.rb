@@ -9,10 +9,9 @@ class Order < ActiveRecord::Base
   end
 
   private
-
   def order_must_have_at_least_one_dish
-    errors.add(:dishes, "order must have at least one dish") unless
-    self.dishes.present? and self.dishes.any?
+    unless dishes.present? && dishes.any?
+      errors.add(:dishes, "order must have at least one dish")
+    end
   end
-
 end

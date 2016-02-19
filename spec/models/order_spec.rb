@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  let!(:user) {FactoryGirl.create(:user)}
-  let!(:dish) {FactoryGirl.create(:dish)}
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:dish) { FactoryGirl.create(:dish) }
   before(:each) do 
     @order = Order.new(user: user) 
     @order.dishes << dish

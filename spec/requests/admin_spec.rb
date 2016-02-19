@@ -32,7 +32,9 @@ RSpec.describe "Request to", type: :request do
     describe "for a customer" do 
       before do
         sign_in user
-        xhr :post, dishes_path({"dish_category"=>{"id"=>"1"}, "name"=>"2", "price"=>"2"}), format: 'js'
+        xhr :post, dishes_path({ "dish_category" => { "id"=>"1" },
+                                 "name" => "2", "price" => "2" }),
+            format: 'js'
       end
 
       it "should be not accessible" do
@@ -43,7 +45,9 @@ RSpec.describe "Request to", type: :request do
     describe "for admin" do 
       before do
         sign_in admin
-        xhr :post, dishes_path({"dish_category"=>{"id"=>"1"}, "name"=>"2", "price"=>"2"}), format: 'js'
+        xhr :post, dishes_path({ "dish_category" => { "id" => "1" },
+                                 "name" => "2", "price" => "2" }),
+            format: 'js'
       end
 
       it "should be accessible" do
@@ -56,7 +60,9 @@ RSpec.describe "Request to", type: :request do
     describe "for a customer" do 
       before do
         sign_in user
-        xhr :post, dishes_path({"dish_category"=>{"id"=>"1"}, "name"=>"2", "price"=>"2"}), format: 'js'
+        xhr :post, dishes_path({ "dish_category" => { "id" => "1" },
+                                 "name" => "2", "price" => "2" }),
+            format: 'js'
       end
 
       it "should be not accessible" do
@@ -67,7 +73,9 @@ RSpec.describe "Request to", type: :request do
     describe "for admin" do 
       before do
         sign_in admin
-        xhr :post, dishes_path({"dish_category"=>{"id"=>"1"}, "name"=>"2", "price"=>"2"}), format: 'js'
+        xhr :post, dishes_path({ "dish_category" => { "id" => "1" },
+                                 "name" => "2", "price" => "2" }),
+            format: 'js'
       end
 
       it "should be accessible" do

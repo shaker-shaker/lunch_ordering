@@ -40,7 +40,8 @@ RSpec.feature "Sign in", :type => :feature do
 		fill_in "Email",	:with => ""
 		fill_in "Password",	:with => ""
 		click_button "Log in"
-		expect(page.body).to have_css "div.alert.alert-danger", :text => 'Invalid email or password.'
+		expect(page.body).to have_css "div.alert.alert-danger",
+																	:text => 'Invalid email or password.'
 	end
 end
 
@@ -74,12 +75,14 @@ RSpec.feature "Edit profile", :type => :feature do
 
 	scenario "with valid fields" do
 		fill_in "Name", 	:with => "newname"
-		expect { click_button "Update" }.to change{ user.reload.name }.to("newname")
+		expect do 
+			click_button "Update" 
+		end.to change { user.reload.name }.to("newname")
 	end
 
 	scenario "with invalid fields" do
 		fill_in "Name", 	:with => ""
-		expect { click_button "Update" }.not_to change{ user.reload.name }
+		expect { click_button "Update" }.not_to change { user.reload.name }
 		expect(page.body).to have_css "div.alert.alert-danger"
 	end
 end

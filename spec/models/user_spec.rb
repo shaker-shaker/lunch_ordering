@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 	before do
 		@user = User.new(name: "Example User", email: "user@example.com",
-			password: "foobar123", password_confirmation: "foobar123")
+										 password: "foobar123",
+										 password_confirmation: "foobar123")
 	end
 
 	subject { @user }
@@ -14,7 +15,7 @@ RSpec.describe User, type: :model do
 
 	context "with invalid data" do
 		before { @user.name = "" }
-		it {is_expected.not_to be_valid}
+		it { is_expected.not_to be_valid }
 	end
 
 	context "after saving" do 
@@ -25,15 +26,17 @@ RSpec.describe User, type: :model do
 		end
 
 		describe "second user" do
-			subject(:user2) { User.create(name: "Example User2", email: "random@user2.com",
-				password: "foobar123", password_confirmation: "foobar123") }
+			subject(:user2) do 
+				User.create(name: "Example User2", email: "random@user2.com",
+										password: "foobar123", password_confirmation: "foobar123")
+				end
 			it { should_not be_admin }
 		end
 	end
 
 	describe "when user has order" do
-		let!(:user) {FactoryGirl.create(:user)}
-		let!(:order) {FactoryGirl.create(:order, user_id: user.id)}
+		let!(:user) { FactoryGirl.create(:user) }
+		let!(:order) { FactoryGirl.create(:order, user_id: user.id) }
 
 		describe "after its deleting" do
 			before do

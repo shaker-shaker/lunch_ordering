@@ -4,5 +4,4 @@ class DashboardController < ApplicationController
 	def index
     gon.is_admin = current_user.admin?
   end
-
 end

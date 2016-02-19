@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
 	has_many :orders, :dependent => :delete_all
 	has_and_belongs_to_many :roles
-	devise :database_authenticatable, :registerable, :rememberable, :trackable, :validatable
+	devise :database_authenticatable, :registerable, :rememberable,
+				 :trackable, :validatable
 	before_create :set_role, :create_api_token
 	validates :name, presence: true, length: { maximum: 30 }
 
@@ -10,7 +11,6 @@ class User < ActiveRecord::Base
 	end
 
 	private
-
 	def has_role?(*role_names)
 		self.roles.where(:name => role_names).present?
 	end

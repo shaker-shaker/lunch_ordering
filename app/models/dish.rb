@@ -10,11 +10,14 @@ class Dish < ActiveRecord::Base
   validates :category, presence: true
 
   private
-
   def date_cannot_be_in_the_future_or_weekend
-    errors.add(:date, "day should be today or day in the past") if
-    !date.blank? and date > Date.today
-    errors.add(:date, "day should not be weekend") if
-    !date.blank? and (date.sunday? or date.saturday?)
+    unless date.blank? 
+      if date > Date.today
+        errors.add(:date, "day should be today or day in the past")
+      end
+      if date.sunday? || date.saturday?
+        errors.add(:date, "day should not be weekend")    
+      end
+    end
   end
 end
