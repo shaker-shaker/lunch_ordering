@@ -20,4 +20,89 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  currency: "$"
+  time:
+    formats:
+      short: "%d-%b-%G"
+      long: "%d-%b-%G at %I:%M%p"
+  api:
+    invalid_token: "Invalid token"
+  security:
+    not_allowed: "You're not allowed to this action"
+  layout:
+    header:
+      title: "Lunch ordering"
+      edit_menu: "Edit today's menu"
+      orders_history: "Orders history"
+      users_list: "Users list"
+      dashboard: "Dashboard"
+      edit_profile: "Edit profile"
+      sign_out: "Sign out"
+      sign_up: "Sign up"
+      sign_in: "Sign in"
+      signed_in_as: "You signed in as %{name}"
+    index:
+      welcome: "Welcome!"
+      signed_in_invitation_message: "Please, %{link} when you ready"
+      not_signed_in_invitation_message: "Please, %{link} to make your order"
+      place_order: "Place your order"
+      sign_in: "Sign in"
+  registrations:
+    sign_up: "Sign up"
+    registration: "Registration"
+    edit: "Edit %{resource_name}"
+    leave_blank: "leave blank if you don't want to change it"
+    change_pass_tip: "we need your current password to confirm your changes"
+    update: "Update"
+    delete_account: "Delete my account"
+    delete_confirm: "Are you sure?"
+  sessions:
+    login: "Log in"
+    please_sign_in: "Please sign in"
+    remember_me: "Remember me"
+  dishes:
+    update_todays_menu: "Update today's menu"
+    select_category: "-- Please, select category --"
+    category: "Category"
+    name: "Name"
+    price: "Price"
+    submit: "Submit"
+    item_added: "New menu item added"
+    no_items_in_course: "There is nothing that you could order"
+    image: "Image"
+    categories:
+      first course: "First course"
+      main course: "Main course"
+      drink: "Drink"
+  orders:
+    model:
+      no_items_in_order: "No items in order"
+      several_items_with_same_category: "You can select only one dish from each category"
+    history:
+      header: 'Orders history'
+      date: "Date"
+      user: "User"
+      order: "Order"
+      order_total: "Order total"
+      total: "Total"
+      show_history: "Show history"
+      no_orders: "There are no orders for this period"
+      invalid_date_param: "Invalid date"
+      select_date: "Please, select date"
+    dashboard:
+      header: "Dashboard"
+      submit: "Submit"
+      show_menu: "Show menu"
+      invalid_date_param: "Invalid date"
+      select_item: "Please, select at least one item"
+      order_created: "Order created"
+      create_error: "Error while placing order, please, contact to administrator"
+      empty_menu: "Menu is empty"
+      invalid_date_param: "Invalid date"
+      select_date: "Please, select date"
+      total: "Total"
+  users:
+    registered_users: "Registered users"
+    user: "User"
+    registration_date: "Registration date"
+    no_users: "There are no registered users"

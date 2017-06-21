@@ -1,33 +1,24 @@
 class DishesController < ApplicationController
-	before_action :authenticate_user!
-  before_action :check_for_admin, only: [:create]
-  respond_to :html, :js
-
-  def menu
-    return_menu(Date.strptime(params[:date], "%d/%m/%Y"))
-  end
+  before_action :user_admin?, only: [:create]
+  before_action :fill_categories
 
   def create
-    dish_category_id = params[:dish_category][:id]
     dish = Dish.new(name: params[:name],
                     price: params[:price],
-                    category: DishCategory.find_by_id(dish_category_id),
-                    date: Date.today)
+                    category_id: params[:dish_category][:id],
+                    image: params[:image])
     if dish.save
-      flash.now[:success] = "New menu item added"
+      flash[:success] = t("dishes.item_added")
+      redirect_to new_dish_path
     else
-      flash.now[:danger] = dish.errors.full_messages.join('</br>')
+      flash.now[:danger] = dish.errors.full_messages.to_sentence
+      render :new
     end
-    return_menu Date.today
   end
 
   private
-  def return_menu(date)
-    @menu = { 
-      menu: Dish.where("date::date = :dish_date ", { dish_date: date }),
-      html_container: params[:html_container],
-      selectable: params[:selectable]
-    }
-    respond_with @menu
+
+  def fill_categories
+    @categories = DishCategory.all.map { |d| [d.id, t("dishes.categories.#{d.name}")] }
   end
 end

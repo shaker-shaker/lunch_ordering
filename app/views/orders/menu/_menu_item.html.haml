@@ -1,0 +1,20 @@
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title
+      = category_name
+  .panel-body
+    - if dishes.count > 0
+      %ul.list-group
+        - dishes.each do |dish|
+          %li.list-group-item.menu-dish-item{ 'data-price' => dish.price }
+            %label.menu-item-label
+              = radio_button_tag "order[selected_dishes][#{dish.category.id}]", dish.id, nil, class: 'menu-item-radio'
+              = image_tag dish.image.url, class: 'menu-item-img'
+              %span.menu-item-name
+                = dish.name
+            .menu-item-price
+              %span.badge
+                = number_to_currency dish.price
+    - else
+      %strong
+        = t('dishes.no_items_in_course')

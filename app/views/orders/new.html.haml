@@ -1,0 +1,21 @@
+- content_for :head do
+  = javascript_include_tag 'order_creation', 'data-turbolinks-track' => true
+
+.page-header
+  %h1
+    = t('orders.dashboard.header')
+
+.row
+  .col-md-12
+    = form_tag new_order_path, enforce_utf8: false, method: :get do
+      .row
+        = render 'shared/datepicker', datepicker_id: 'menu-date', date_value: params['menu-date']
+        = submit_tag t('orders.dashboard.show_menu'), class: 'btn btn-info', name: nil
+
+- if params['menu-date'].present?
+  = menu_form(params['menu-date'])
+- else
+  .row
+    .col-md-12
+      %h3
+        = t('orders.dashboard.select_date')

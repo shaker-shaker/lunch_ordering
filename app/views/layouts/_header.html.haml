@@ -1,25 +1,31 @@
 %nav.navbar.navbar-inverse
-	.container
-		.navbar-header
-			%a.navbar-brand{ href: root_path } Lunch ordering
-		.navbar-right
-			-if user_signed_in?
-				%ul.nav.navbar-nav
-					%li
-						= link_to "Dashboard", dashboard_path
-					%li.dropdown
-						%a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"} 
-							You signed in as 
-							= current_user.name
-							%span.caret
-						%ul.dropdown-menu
-							%li
-								= link_to "Edit profile", edit_user_path(current_user.id)
-							%li.divider{:role => "separator"}
-							%li
-								= link_to "Sign out", destroy_user_session_path, :method => :delete
-				%p.navbar-text 
-			-else
-				.header-actions
-					= link_to "Sign up", new_user_registration_path, class: "btn btn-primary"
-					= link_to "Sign in", new_user_session_path, class: "btn btn-default" 
+  .container
+    .navbar-header
+      %a.navbar-brand{ href: root_path }= t('layout.header.title')
+    .navbar-right
+      - if user_signed_in?
+        %ul.nav.navbar-nav
+          - if current_user.admin?
+            %li
+              = link_to t('layout.header.edit_menu'), new_dish_path
+            %li
+              = link_to t('layout.header.orders_histrory'), history_orders_path
+            %li
+              = link_to t('layout.header.users_list'), list_users_path
+          %li
+            = link_to t('layout.header.dashboard'), new_order_path
+          %li.dropdown
+            %a.dropdown-toggle{ 'data-toggle' => 'dropdown', href: '#' }
+              = t('layout.header.signed_in_as', name: current_user.name)
+              %span.caret
+            %ul.dropdown-menu
+              %li
+                = link_to t('layout.header.edit_profile'), edit_user_registration_path(current_user.id)
+              %li.divider
+              %li
+                = link_to t('layout.header.sign_out'), destroy_user_session_path, method: :delete
+        %p.navbar-text
+      - else
+        .header-actions
+          = link_to t('layout.header.sign_up'), new_user_registration_path, class: 'btn btn-primary'
+          = link_to t('layout.header.sign_in'), new_user_session_path, class: 'btn btn-default'

@@ -23,9 +23,9 @@ ActiveRecord::Schema.define(version: 20160218143316) do
   end
 
   create_table "dishes", force: :cascade do |t|
-    t.datetime "date"
     t.decimal  "price"
     t.string   "name"
+    t.string   "image"
     t.integer  "category_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -75,9 +75,9 @@ ActiveRecord::Schema.define(version: 20160218143316) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "api_token"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "api_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

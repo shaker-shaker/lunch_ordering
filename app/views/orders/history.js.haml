@@ -1,5 +1,0 @@
-:plain
-  $('.error-explaination').html("#{j render partial: 'shared/alert_messages'}");
-  $("#orders-history").html("Please, choose a date");
-  $( "#{@orders_history[:date] == Date.today}".toLowerCase() === 'true' ? "#today-orders" : "#orders-history")
-  .html("#{j render partial: 'shared/order_history_table', locals: {orders: @orders_history[:orders]}}");

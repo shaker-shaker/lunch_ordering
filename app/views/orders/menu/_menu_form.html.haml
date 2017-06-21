@@ -1,0 +1,31 @@
+- if dishes && dishes.count > 0
+  = form_tag orders_path, method: :post do
+    .row#menu-list
+      .col-md-4
+        = render 'orders/menu/menu_item',
+                 dishes: dishes.select { |d| d.category.name == 'first course' },
+                 category_name: t('dishes.categories.first course')
+      .col-md-4
+        = render 'orders/menu/menu_item',
+                 dishes: dishes.select { |d| d.category.name == 'main course' },
+                 category_name: t('dishes.categories.main course')
+      .col-md-4
+        = render 'orders/menu/menu_item',
+                 dishes: dishes.select { |d| d.category.name == 'drink' },
+                 category_name: t('dishes.categories.drink')
+
+    .row.showg-grid
+      .col-sm-2
+        %strong
+          #{t('orders.dashboard.total')}:
+          %strong.order-total
+            0
+
+    - if params['menu-date'] && params['menu-date'].to_date == Date.today
+      %hr
+      = submit_tag t('orders.dashboard.submit'), class: 'btn btn-primary'
+- else
+  .row
+    .col-md-12
+      %p
+        = t('orders.dashboard.empty_menu')

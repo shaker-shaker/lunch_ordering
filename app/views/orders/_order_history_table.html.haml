@@ -1,0 +1,35 @@
+- if orders.count > 0
+  %table.table.table-bordered.table-condensed.table-striped
+    %thead
+      %th
+        = t('orders.history.date')
+      %th
+        = t('orders.history.user')
+      %th
+        = t('orders.history.order')
+      %th
+        = t('orders.history.order_total')
+    %tbody
+      - orders.each do |order|
+        %tr
+          %td
+            = l(order.created_at, format: :long)
+          %td
+            = order.user.name
+          %td
+            - if order.items.present?
+              %ul.list-inline
+                - order.items.each do |dish|
+                  %li
+                    = dish.name
+          %td
+            = number_to_currency order.total
+    %tfoot
+      %tr
+        %td{ colspan: 3 }
+          %strong
+            = t('orders.history.total')
+        %td
+          = number_to_currency orders.inject(0) { |sum, x| sum + x.total }
+- else
+  = t('orders.history.no_orders')

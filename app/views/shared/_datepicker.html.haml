@@ -1,0 +1,7 @@
+.col-md-5
+  .input-group.date
+    = text_field_tag datepicker_id,
+                     (l(date_value.to_time.localtime, format: :short) if date_value.present?),
+                     class: 'form-control', readonly: true
+    %label.input-group-addon.btn{ for: datepicker_id }
+      %span.glyphicon.glyphicon-calendar

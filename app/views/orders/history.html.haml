@@ -1,0 +1,19 @@
+- content_for :head do
+  = javascript_include_tag 'order_history', 'data-turbolinks-track' => true
+
+.page-header
+  %h1.orders-history-header
+    = t('orders.history.header')
+
+= form_tag history_orders_path, enforce_utf8: false, method: :get do
+  .row
+    = render 'shared/datepicker', datepicker_id: 'order-date', date_value: params['order-date']
+    = submit_tag t('orders.history.show_history'), class: 'btn btn-info', name: nil
+
+.row
+  - if params['order-date'].present?
+    = orders_history(params['order-date'])
+  - else
+    .col-md-12
+      %h3
+        = t('orders.history.select_date')

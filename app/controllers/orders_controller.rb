@@ -1,40 +1,32 @@
 class OrdersController < ApplicationController
-	before_action :authenticate_user!
-  before_action :correct_dishes, only: [:create]
-  before_action :check_for_admin, only: [:history]
-	respond_to :html, :js
-	
-	def create
-    order = Order.new(user_id: params[:order][:user_id])
-    @dishes.each do |d|
-      order.dishes << d
-    end
-    if order.save
-      flash.now[:success] = "Order placed"
-    else
-      flash.now[:danger] = "Error while placing order,"\
-                           "please, contact to administrator"
-    end
-  end
+  before_action :collect_dishes, only: [:create]
+  before_action :user_admin?, only: [:history]
 
-  def history
-    date = Date.strptime(params[:date], "%d/%m/%Y")
-    @orders_history = { 
-      orders: Order.where("created_at::date = :date ", { date: date }),
-      date: date
-    }
-    respond_with @orders_history
+  def create
+    order = Order.new(user_id: current_user.id)
+    order.items << @dishes
+
+    if order.save
+      flash[:success] = I18n.t "orders.dashboard.order_created"
+    else
+      flash[:danger] = order.errors.full_messages.to_sentence
+    end
+
+    redirect_to new_order_path("menu-date" => Date.today)
   end
 
   private
-  def correct_dishes
-    if params[:order][:ordered].present?
-      @dishes = params[:order][:ordered].values.collect do |v| 
-        Dish.find_by(id: v) 
-      end.uniq { |e| e[:category_id] }
-    else   
-      flash.now[:danger] = "Please, choose at least one product"
-      respond_to { |format| format.js }
+
+  def collect_dishes
+    if params[:order] && params[:order][:selected_dishes]
+      @dishes = Dish.where(id: params[:order][:selected_dishes].values)
+    else
+      error_redirect
     end
+  end
+
+  def error_redirect
+    flash[:danger] = t("orders.dashboard.select_item")
+    redirect_to new_order_path("menu-date" => Date.today)
   end
 end

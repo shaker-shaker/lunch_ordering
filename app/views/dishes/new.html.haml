@@ -1,0 +1,29 @@
+.page-header
+  %h1
+    = t('dishes.update_todays_menu')
+.row
+  .col-md-12#today-menu
+  .col-md-8
+    = form_tag dishes_path, multipart: true, method: :post, class: 'form-horizontal' do
+      .form-group
+        = label_tag :dish_category, t('dishes.category'),
+                    class: 'col-sm-4 control-label'
+        .col-sm-8
+          = collection_select :dish_category, :id, @categories, :first, :last,
+                              { prompt: t('dishes.select_category') },
+                              class: 'form-control'
+      .form-group
+        = label_tag :name, t('dishes.name'), class: 'col-sm-4 control-label'
+        .col-sm-8
+          = text_field_tag :name, nil, class: 'form-control'
+      .form-group
+        = label_tag :price, t('dishes.price'), class: 'col-sm-4 control-label'
+        .col-sm-8
+          = text_field_tag :price, nil, class: 'form-control'
+      .form-group
+        = label_tag :image, t('dishes.image'), class: 'col-sm-4 control-label'
+        .col-sm-8
+          = file_field_tag :image, class: 'form-control'
+      .form-group
+        .col-sm-offset-4.col-sm-8
+          = submit_tag t('dishes.submit'), class: 'btn btn-primary'

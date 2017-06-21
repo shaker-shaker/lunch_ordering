@@ -1,11 +1,9 @@
-%h1 Welcome!
--if user_signed_in?
-  %p 
-    Please,
-    = link_to "Place your order", dashboard_path, class: "btn btn-link"
-    when you ready
--else
-  %p 
-    Please,
-    = link_to "Sign in", new_user_session_path, class: "btn btn-link"
-    sign in to make your order
+%h1= t('layout.index.welcome')
+- if user_signed_in?
+  %p
+    = raw t('layout.index.signed_in_invitation_message',
+            link: link_to(t('layout.index.place_order'), new_order_path, class: 'btn-link'))
+- else
+  %p
+    = raw t('layout.index.not_signed_in_invitation_message',
+            link: link_to(t('layout.index.sign_in'), new_user_session_path, class: 'btn-link'))

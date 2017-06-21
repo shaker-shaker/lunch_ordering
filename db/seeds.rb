@@ -7,9 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 %w(lunch\ admin customer).each do |role|
-	Role.find_or_create_by({ name: role })
+  Role.find_or_create_by(name: role)
 end
 
 %w(first\ course main\ course drink).each do |type|
-	DishCategory.find_or_create_by({ name: type })
+  DishCategory.find_or_create_by(name: type)
 end
